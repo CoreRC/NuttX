@@ -435,4 +435,8 @@
 #define GPIO_LTDC_DE                    GPIO_LTDC_DE_3
 #define GPIO_LTDC_CLK                   GPIO_LTDC_CLK_3
 
+
+#define GPIO_I2C3_SCL     GPIO_I2C3_SCL_2
+#define GPIO_I2C3_SDA     GPIO_I2C3_SDA_2
+
 #endif  /* __CONFIG_STM32F746G_DISCO_INCLUDE_BOARD_H */

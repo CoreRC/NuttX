@@ -99,6 +99,12 @@
 
 #define GPIO_LCD_BL       (GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_50MHz|\
                            GPIO_OUTPUT_SET|GPIO_PORTK|GPIO_PIN3)
+
+#define GPIO_TS_INT     (GPIO_INPUT|GPIO_EXTI|GPIO_SPEED_50MHz|GPIO_PORTI|GPIO_PIN13)
+#define TS_INT_EXTI_IRQn STM32_IRQ_EXTI1510
+
+#define FT5x06_I2C_ADDRESS  0x38
+
 /****************************************************************************************************
  * Public data
  ****************************************************************************************************/
@@ -183,6 +189,25 @@ void stm32_enablefmc(void);
 
 #ifdef CONFIG_STM32F7_FMC
 void stm32_disablefmc(void);
+#endif
+
+/****************************************************************************
+ * Name: stm32_ft5x06_register
+ *
+ * Description:
+ *   Register the FT5x06 touch panel driver
+ *
+ ****************************************************************************/
+
+#ifdef CONFIG_INPUT_FT5336
+int stm32_ft5x06_register(void);
+#endif
+
+/* Do we need to register I2C drivers on behalf of the I2C tool? */
+
+#define HAVE_I2CTOOL 1
+#if !defined(CONFIG_SYSTEM_I2CTOOL) || !defined(CONFIG_I2C_DRIVER)
+#  undef HAVE_I2CTOOL
 #endif
 
 #endif /* __ASSEMBLY__ */
