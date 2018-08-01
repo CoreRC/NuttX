@@ -1,7 +1,7 @@
 /****************************************************************************
  * config/stm32f476g-disco/src/stm32_bringup.c
  *
- *   Copyright (C) 2017 Gregory Nutt. All rights reserved.
+ *   Copyright (C) 2018 Gregory Nutt. All rights reserved.
  *   Author: Gregory Nutt <gnutt@nuttx.org>
  *
  * Redistribution and use in source and binary forms, with or without
@@ -100,7 +100,6 @@ static void stm32_i2c_register(int bus)
  ****************************************************************************/
 
 #ifdef HAVE_I2CTOOL
-#pragma warning "I2C TOOL BUILTIN"
 static void stm32_i2ctool(void)
 {
 #ifdef CONFIG_STM32F7_I2C1
@@ -110,7 +109,6 @@ static void stm32_i2ctool(void)
   stm32_i2c_register(2);
 #endif
 #ifdef CONFIG_STM32F7_I2C3
-#pragma warning "I2C3 TOOL BUILTIN"
   stm32_i2c_register(3);
 #endif
 #ifdef CONFIG_STM32F7_I2C4
