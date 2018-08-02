@@ -183,7 +183,7 @@ static void stm32_ft5x06_wakeup(FAR const struct ft5x06_config_s *config)
 static void stm32_ft5x06_nreset(FAR const struct ft5x06_config_s *config,
                                 bool nstate)
 {
-//   stm32_gpio_write(GPIO_FT5x06_CTRSTn, nstate);
+  /* We do not have access to the RST pin in the implementation */
 }
 
 /****************************************************************************
@@ -226,7 +226,7 @@ int stm32_ft5x06_register(void)
 
   // stm32_gpio_write(GPIO_FT5x06_CTRSTn, true);
 #endif
-  /* The FT5x06 is on I2C2.  Get the handle and register the F5x06 device */
+  /* The FT5336 is on I2C3.  Get the handle and register the F5336 device */
 
   i2c = stm32_i2cbus_initialize(3);
   if (i2c == NULL)
