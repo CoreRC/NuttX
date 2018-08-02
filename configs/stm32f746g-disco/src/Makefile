@@ -76,4 +76,12 @@ ifeq ($(CONFIG_INPUT_FT5336),y)
 CSRCS += stm32_ft5336.c
 endif
 
+ifeq ($(CONFIG_STM32F7_SDMMC),y)
+CSRCS += stm32_sdmmc.c
+endif
+
+ifeq ($(CONFIG_STM32_ROMFS),y)
+CSRCS += stm32_romfs_initialize.c
+endif
+
 include $(TOPDIR)/configs/Board.mk

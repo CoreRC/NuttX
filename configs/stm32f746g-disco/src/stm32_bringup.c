@@ -59,6 +59,13 @@
 #include <arch/board/board.h>
 #include <nuttx/i2c/i2c_master.h>
 #include "stm32_i2c.h"
+#include "stm32_sdmmc.h"
+#include "stm32_romfs.h"
+
+/****************************************************************************
+ * Private Data
+ ****************************************************************************/
+
 
 /****************************************************************************
  * Name: stm32_i2c_register
@@ -207,6 +214,26 @@ int stm32_bringup(void)
 /* Register I2C drivers on behalf of the I2C tool */
 
   stm32_i2ctool();
+
+#ifdef CONFIG_STM32F7_SDMMC1
+  /* Initialize the SDIO block driver */
+  syslog(LOG_ERR, "Initialize MMC/SD driver\n");
+  ret = stm32_sdio_initialize();
+  if (ret != OK)
+    {
+      syslog(LOG_ERR, "ERROR: Failed to initialize MMC/SD driver: %d\n", ret);
+      return ret;
+    }
+#endif
+
+#ifdef CONFIG_STM32_ROMFS
+  ret = stm32_romfs_initialize();
+  if (ret < 0)
+    {
+      syslog(LOG_ERR, "ERROR: Failed to mount romfs at %s: %d\n",
+           CONFIG_STM32_ROMFS_MOUNTPOINT, ret);
+    }
+#endif
 
   return OK;
 }

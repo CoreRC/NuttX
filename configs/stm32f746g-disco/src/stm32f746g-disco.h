@@ -105,6 +105,12 @@
 
 #define FT5x06_I2C_ADDRESS  0x38
 
+/* SD card detect pin: PC13   (line is pulled up on board) */
+#define GPIO_SDIO_NCD      (GPIO_INPUT|GPIO_EXTI|GPIO_SPEED_50MHz|GPIO_PORTC|GPIO_PIN13)
+
+#define SDIO_SLOTNO 0
+#define SDIO_MINOR 0
+
 /****************************************************************************************************
  * Public data
  ****************************************************************************************************/
@@ -203,6 +209,18 @@ void stm32_disablefmc(void);
 int stm32_ft5x06_register(void);
 #endif
 
+/****************************************************************************
+ * Name: stm32_sdio_initialize
+ *
+ * Description:
+ *   Initialize SDIO-based MMC/SD card support
+ *
+ ****************************************************************************/
+
+#if !defined(CONFIG_DISABLE_MOUNTPOINT) && defined(CONFIG_STM32F7_SDMMC1)
+int stm32_sdio_initialize(void);
+#endif
+
 /* Do we need to register I2C drivers on behalf of the I2C tool? */
 
 #define HAVE_I2CTOOL 1
@@ -210,6 +228,8 @@ int stm32_ft5x06_register(void);
 #  undef HAVE_I2CTOOL
 #endif
 
+#define HAVE_SDIO 1
+#define HAVE_NCD 1
 #endif /* __ASSEMBLY__ */
 
 #endif /* __CONFIGS_STM32F746G_DISCO_SRC_STM32F746G_DISCO_H */
