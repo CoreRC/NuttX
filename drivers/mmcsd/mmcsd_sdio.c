@@ -531,7 +531,11 @@ static int mmcsd_getSCR(FAR struct mmcsd_state_s *priv, uint32_t scr[2])
       SDIO_CANCEL(priv->dev);
       return ret;
     }
-
+  
+#ifdef CONFIG_STM32F7_SDMMC
+  /* There is a hardware? bug here on STM32F7 platforms */
+  up_udelay(1000);
+#endif
   /* Wait for data to be transferred */
 
   ret = mmcsd_eventwait(priv, SDIOWAIT_TIMEOUT | SDIOWAIT_ERROR,
